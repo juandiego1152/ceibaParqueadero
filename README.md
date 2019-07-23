@@ -1,7 +1,2 @@
-# DDD Hexagonal using Scala and Play
+# DDD Hexagonal usando Scala y Play
 
-A Hexagonal Architecture with DDD using Play Framework
-
-Use Cases:
-
-- Get all Users
