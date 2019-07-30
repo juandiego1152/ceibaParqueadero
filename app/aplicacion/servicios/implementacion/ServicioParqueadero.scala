@@ -1,35 +1,40 @@
 package aplicacion.servicios.implementacion
 
+import java.sql.Timestamp
+
 import akka.Done
+import aplicacion.dtos.placaVehiculoDto
 import aplicacion.{Dependencias, _}
-import aplicacion.servicios.traits.ServicioParqueaderoTraits
 import cats.data.{EitherT, Reader}
 import cats.implicits._
-import dominio.modelos.{InformacionParqueo, SinCategoria, TipoVehiculo}
-import dominio.servicios.traits.implementaciones.ServicioValidacionesParqueadero
-import infraestructura.configuracion.{Aplicacion, MensajeError, Negocio}
+import dominio.modelos.{RegistroParqueo, SinCategoria, TipoVehiculo}
+import dominio.servicios.implementaciones.ServicioValidacionesParqueadero
+import infraestructura.configuracion.{Aplicacion, MensajeError}
+import monix.eval.Task
 
+trait ServicioParqueadero {
 
-object ServicioParqueadero extends ServicioParqueaderoTraits {
-
-  def registrarIngresoVehiculo(registroVehiculo: InformacionParqueo): Reader[Dependencias, FormatoEitherT[Done]] = Reader {
+  def registrarIngresoVehiculo(registroVehiculo: RegistroParqueo): Reader[Dependencias, FormatoEitherT[Done]] = Reader {
     case dependencia: Dependencias =>
 
-      dependencia.repoParqueadero.consultarVehiculosRegistrados().run(dependencia.databaseConfig).flatMap(
+      dependencia.repoParqueadero.consultarCantidadVehiculosRegistrados().run(dependencia.databaseConfig).flatMap(
         cantidadVehiculos => ServicioValidacionesParqueadero.validarPermiteIngresarVehiculos(registroVehiculo, cantidadVehiculos)
           .fold(
             error => EitherT.leftT(error),
             _ => {
               for {
                 _ <- validarInformacion(registroVehiculo).aFormatoEitherT
-                resultado <- dependencia.repoParqueadero.guardarRegistroParqueadero(registroVehiculo).run(dependencia.databaseConfig)
+                resultado <- {
+                  val horaFechaActual = new Timestamp(System.currentTimeMillis())
+                  dependencia.repoParqueadero.guardarRegistroParqueadero(registroVehiculo, horaFechaActual).run(dependencia.databaseConfig)
+                }
               } yield resultado
             }
           )
       )
   }
 
-  private[servicios] def validarInformacion(informacionParqueo: InformacionParqueo): FormatoEither[Done] = {
+  private[servicios] def validarInformacion(informacionParqueo: RegistroParqueo): FormatoEither[Done] = {
     (validarFormatoPlaca(informacionParqueo.placaVehiculo),
       validarTipoVehiculo(informacionParqueo.tipoVehiculo)).mapN((_, _) => Done).aFormatoEither
   }
@@ -49,7 +54,22 @@ object ServicioParqueadero extends ServicioParqueaderoTraits {
       MensajeError(Aplicacion, "El vehiculo no tiene una categoria aceptable").invalidNel
   }
 
-  def registrarSalidaVehiculo(placaVehiculo: String): Reader[Dependencias, FormatoEitherT[Double]] = {
-    ???
+  def registrarSalidaVehiculo(placaVehiculo: placaVehiculoDto): Reader[Dependencias, FormatoEitherT[Double]] = Reader {
+    case dependencias: Dependencias =>
+      dependencias.repoParqueadero.consultarVehiculoRegistrado(placaVehiculo.placaVehiculo)
+        .run(dependencias.databaseConfig)
+        .flatMap(_ match {
+          case Some(registro) => {
+            for {
+              _ <- dependencias.repoParqueadero.eliminarRegistroParqueadero(placaVehiculo.placaVehiculo).run(dependencias.databaseConfig)
+              valorServicio <- EitherT.rightT[Task, MensajeError](ServicioValidacionesParqueadero.generarValorServicioParqueo(registro))
+            } yield valorServicio
+          }
+          case None => EitherT.leftT(MensajeError(Aplicacion, "No se encontr\u00F3 ningun registro con esta placa"))
+        }
+        )
   }
+
 }
+
+object ServicioParqueaderoObj extends ServicioParqueadero

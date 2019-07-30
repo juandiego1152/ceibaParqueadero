@@ -2,22 +2,23 @@ package infraestructura.transformadores
 
 import java.sql.Timestamp
 
-import dominio.modelos.{InformacionParqueo, TipoVehiculo}
+import dominio.modelos.{RegistroParqueo, TipoVehiculo, InformacionVehiculoParqueadero}
 import infraestructura.repositorios.registros.InformacionParqueoRegistro
 
 object InformacionParqueoTransformer {
 
-  def aInformacionParqueoRegistro(informacion: InformacionParqueo, horaFechaRegistro: Timestamp) = InformacionParqueoRegistro(
+  def aInformacionParqueoRegistro(informacion: RegistroParqueo, horaFechaRegistro: Timestamp) = InformacionParqueoRegistro(
     informacion.placaVehiculo,
     informacion.tipoVehiculo.descripcion,
     informacion.esAltoCilindraje.getOrElse(false),
     horaFechaRegistro
   )
 
-  def aInformacionParqueoDto(informacion: InformacionParqueoRegistro) = InformacionParqueo(
+  def aInformacionVehiculoParqueadero(informacion: InformacionParqueoRegistro) = InformacionVehiculoParqueadero(
     informacion.placaVehiculo,
     TipoVehiculo(informacion.tipoVehiculo),
-    Some(informacion.esAltoCilindraje)
+    informacion.esAltoCilindraje,
+    informacion.horaFechaIngresoVehiculo
   )
 
 }

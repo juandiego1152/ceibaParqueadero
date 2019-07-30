@@ -39,14 +39,14 @@ package object aplicacion {
 //      }
 //    }
 //  }
-//  //
-//  implicit class CustomEitherFromSequence[T]( val seqCustomEither: Seq[FormatoEither[T]] ) extends AnyVal {
-//    def traverseCustomEitherSequence: FormatoEither[List[T]] = {
-//      seqCustomEither.foldRight( Right( Nil ): FormatoEither[List[T]] ) {
-//        ( value, acc ) => for ( xs <- acc.right; x <- value.right ) yield x :: xs
-//      }
-//    }
-//  }
+  //
+  implicit class CustomEitherFromSequence[T]( val seqCustomEither: Seq[FormatoEither[T]] ) extends AnyVal {
+    def traverseCustomEitherSequence: FormatoEither[List[T]] = {
+      seqCustomEither.foldRight( Right( Nil ): FormatoEither[List[T]] ) {
+        ( value, acc ) => for ( xs <- acc.right; x <- value.right ) yield x :: xs
+      }
+    }
+  }
 
   implicit class ConvertirAFormatoEitherT[T](formatoEither: FormatoEither[T] ){
     def aFormatoEitherT: FormatoEitherT[T] = {

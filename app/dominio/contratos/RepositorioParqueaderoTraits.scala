@@ -1,17 +1,23 @@
 package dominio.contratos
 
+import java.sql.Timestamp
+
 import akka.Done
 import aplicacion.FormatoEitherT
 import cats.data.Reader
-import dominio.modelos.InformacionParqueo
+import dominio.modelos.{RegistroParqueo, InformacionVehiculoParqueadero}
 import slick.basic.DatabaseConfig
 import slick.jdbc.JdbcProfile
 
 trait RepositorioParqueaderoTraits {
 
-  def guardarRegistroParqueadero(registroParqueadero: InformacionParqueo): Reader[DatabaseConfig[JdbcProfile], FormatoEitherT[Done]]
+  def guardarRegistroParqueadero(registroParqueadero: RegistroParqueo, horaFechaEntrada: Timestamp): Reader[DatabaseConfig[JdbcProfile], FormatoEitherT[Done]]
 
-  def consultarVehiculosRegistrados(): Reader[DatabaseConfig[JdbcProfile], FormatoEitherT[Int]]
+  def consultarCantidadVehiculosRegistrados(): Reader[DatabaseConfig[JdbcProfile], FormatoEitherT[Int]]
+
+  def consultarVehiculoRegistrado(placa: String): Reader[DatabaseConfig[JdbcProfile], FormatoEitherT[Option[InformacionVehiculoParqueadero]]]
+
+  def consultarVehiculosRegistrados(): Reader[DatabaseConfig[JdbcProfile], FormatoEitherT[List[InformacionVehiculoParqueadero]]]
 
   def eliminarRegistroParqueadero(placa: String): Reader[DatabaseConfig[JdbcProfile], FormatoEitherT[Done]]
 

@@ -6,5 +6,5 @@ case class InformacionParqueoRegistro(
                                        placaVehiculo: String,
                                        tipoVehiculo: String,
                                        esAltoCilindraje: Boolean,
-                                       horaFechaEntradaVehiculo: Timestamp
+                                       horaFechaIngresoVehiculo: Timestamp
                                      )
