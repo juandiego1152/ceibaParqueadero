@@ -34,9 +34,11 @@ pipeline { //Donde se va a ejecutar el Pipeline
         stage('Compile & Unit Tests') {
             steps {
                 echo "------------>Unit Tests<------------"
-				 sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt test"
-                 sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt scalastyle"
-            }
+		//sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt test"
+                 //sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt scalastyle"
+            	sh sbt clean compile
+		sh sbt test
+	    }
         }
         stage('Static Code Analysis') {
             steps {
