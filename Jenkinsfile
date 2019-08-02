@@ -11,10 +11,10 @@ pipeline { //Donde se va a ejecutar el Pipeline
     }
 
     environment {
-            SBT_HOME = tool name: 'SBT1.2.8_Centos'
-            SONARSCANNER_HOME = tool name: 'SonarScanner'
-            PATH = "${env.SBT_HOME}/bin:${env.PATH}"
-        }
+        SBT_HOME = tool name: 'SBT1.2.8_Centos'
+        SONARSCANNER_HOME = tool name: 'SonarScanner'
+        PATH = "${env.SBT_HOME}/bin:${env.PATH}"
+     }
 
     //Una sección que define las herramientas para “autoinstalar” y poner en la PATH
     tools {
@@ -83,10 +83,10 @@ pipeline { //Donde se va a ejecutar el Pipeline
         }
     }
     post {
-        success {
-            echo 'This will run only if successful'
-			junit 'build/test-results/test/*.xml'
-        }
+        //success {
+          //  echo 'This will run only if successful'
+		//	junit 'build/test-results/test/*.xml'
+        //}
         failure {
             echo 'This will run only if failed'
 			mail (
