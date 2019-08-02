@@ -17,7 +17,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
      //}
 
     environment {
-       SBT_HOME  = ${tool name: 'Sbt_1.2.8', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}
+       SBT_HOME  = "${tool name: 'Sbt_1.2.8', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}"
        //SONARSCANNER_HOME = tool name: 'SonarScanner'
        PATH = "${env.SBT_HOME}/bin:${env.PATH}"
    }
