@@ -67,8 +67,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
             steps {
                 echo '------------>Análisis de código estático<------------'
                 withSonarQubeEnv('Sonar') {
-                    sh "${tool name: 'SonarScanner',
-					type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner-Dproject.settings=sonar-project.properties"
+                    sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner-Dproject.settings=sonar-project.properties"
                 }
 
 				withSonarQubeEnv('Sonar') {
@@ -86,9 +85,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
         }
     }
     post {
-        always {
-            echo 'This will always run'
-        }
+
         success {
             echo 'This will run only if successful'
 			junit 'build/test-results/test/*.xml'
@@ -99,12 +96,6 @@ pipeline { //Donde se va a ejecutar el Pipeline
 			to: 'juan.zapata@ceiba.com.co',
 			subject: "FailedPipeline:${currentBuild.fullDisplayName}",
 			body: "Algo esta mal con: ${currentBuild.fullDisplayName}, visita el proyecto con la sigueinte url: ${env.BUILD_URL}")
-        }
-        unstable {
-            echo 'This will run only if the run was marked as unstable'
-        }
-        changed {
-            echo 'This will run only if the state of the Pipeline has changed' echo 'For example, if the Pipeline was previously failing but is now successful'
         }
     }
 }
