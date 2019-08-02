@@ -1,7 +1,11 @@
 package mocks.mocksServicioIngresoVehiculo
 
+import akka.Done
+import aplicacion.Dependencias
+import cats.data.{EitherT, Reader}
+import infraestructura.FalseConfigurations
 import org.specs2.mock.Mockito
-
+import play.api.Application
 trait MockRegistrarIngresoVehiculo extends Mockito {
 
   //  def mockearFuncionGuardarCuentaHabienteError( dependencia: Dependencias ) = {
@@ -10,12 +14,11 @@ trait MockRegistrarIngresoVehiculo extends Mockito {
   //    }
   //  }
   //
-//  def mockearFuncionGuardarCuentaHabienteExito(app: Application) = {
-  //    val dependencia = app.injector.instanceOf[FalseConfigurations](classOf[FalseConfigurations])
-  //    dependencia.servicioParqueadero.registrarIngresoVehiculo(any) returns Reader { _ =>
-  //      EitherT.rightT(Done)
-  //    }
-  //  }
+  def mockearFuncionGuardarCuentaHabienteExito(dependencia: FalseConfigurations) = {
+      dependencia.servicioParqueadero.registrarIngresoVehiculo(anyObject) returns Reader { _ =>
+        EitherT.rightT(Done)
+      }
+    }
 
 }
 

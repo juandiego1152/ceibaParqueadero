@@ -13,11 +13,12 @@ import slick.jdbc.JdbcProfile
 
 @Singleton
 class Dependencias @Inject()(val config: Configuration,
-                             val ws: WSClient) {
+                             val ws: WSClient){
 
   lazy val databaseConfig: DatabaseConfig[JdbcProfile] = DataBaseConfig.dbConfigPostgres
 
   lazy val servicioParqueadero: ServicioParqueadero = ServicioParqueaderoObj
+
   lazy val repoParqueadero: RepositorioParqueaderoTraits = repoParqueaderoObj
 
 }
