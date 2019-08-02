@@ -25,7 +25,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
                         gitTool: 'Git_Centos', submoduleCfg: [],
                         userRemoteConfigs: [[
                                 credentialsId: 'GitHub_juandiego1152',
-                                url: 'https://github.com/juandiego1152/ceibaParqueadero/tree/master'
+                                url: 'https://github.com/juandiego1152/ceibaParqueadero.git'
                             ]]
                     ])
 
@@ -34,7 +34,8 @@ pipeline { //Donde se va a ejecutar el Pipeline
         stage('Compile & Unit Tests') {
             steps {
                 echo "------------>Unit Tests<------------"
-				sh 'gradle --b./proyecto1/build.gradle clean compileJava'
+				 sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt test"
+                 sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt scalastyle"
             }
         }
         stage('Static Code Analysis') {
@@ -46,8 +47,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
                 }
 				
 				withSonarQubeEnv('Sonar') {
-					sh "${tool name: 'SonarScanner'2,
-					type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
+					sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
 					
             }
         }
@@ -55,7 +55,10 @@ pipeline { //Donde se va a ejecutar el Pipeline
             steps {
                 echo "------------>Build<------------"
                 Prácticas Técnicas(Gerencia Técnica)
-				sh 'gradle --b ./build.gradle build -x test'
+			    sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt coverage 'test-only * -- -F 4'"
+                sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt coverageReport"
+                sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt scalastyle || true"
+
             }
         }
     }
