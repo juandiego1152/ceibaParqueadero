@@ -17,7 +17,6 @@ pipeline { //Donde se va a ejecutar el Pipeline
         stage('Checkout') {
             steps {
                 echo "------------>Checkout<------------"
-
                 checkout([$class: 'GitSCM',
                         branches: [[name: '*/master']],
                         doGenerateSubmoduleConfigurations: false,
@@ -42,19 +41,17 @@ pipeline { //Donde se va a ejecutar el Pipeline
             steps {
                 echo '------------>Análisis de código estático<------------'
                 withSonarQubeEnv('Sonar') {
-                    sh "${tool name: 'SonarScanner',
-					type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner-Dproject.settings=sonar-project.properties"
+                    sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner-Dproject.settings=sonar-project.properties"
                 }
 				
 				withSonarQubeEnv('Sonar') {
 					sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
-					
+                }
             }
         }
         stage('Build') {
             steps {
                 echo "------------>Build<------------"
-                Prácticas Técnicas(Gerencia Técnica)
 			    sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt coverage 'test-only * -- -F 4'"
                 sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt coverageReport"
                 sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt scalastyle || true"
