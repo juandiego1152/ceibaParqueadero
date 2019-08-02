@@ -60,10 +60,10 @@ pipeline { //Donde se va a ejecutar el Pipeline
             }
         }
     }
-    post {
-        always {
-            echo 'This will always run'
-        }
+     post {
+        //always {
+          //  echo 'This will always run'
+        //}
         success {
             echo 'This will run only if successful'
 			junit 'build/test-results/test/*.xml'
@@ -72,11 +72,11 @@ pipeline { //Donde se va a ejecutar el Pipeline
             echo 'This will run only if failed'
 			mail (to: 'juan.zapata@ceiba.com.co',subject: "FailedPipeline:${currentBuild.fullDisplayName}",body: "Something is wrongwith ${env.BUILD_URL}")
         }
-        unstable {
-            echo 'This will run only if the run was marked as unstable'
-        }
-        changed {
-            echo 'This will run only if the state of the Pipeline has changed' echo 'For example, if the Pipeline was previously failing but is now successful'
-        }
+        //unstable {
+          //  echo 'This will run only if the run was marked as unstable'
+        //}
+        //changed {
+          //  echo 'This will run only if the state of the Pipeline has changed' echo 'For example, if the Pipeline was previously failing but is now successful'
+        //}
     }
 }
