@@ -47,7 +47,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
 				
 				withSonarQubeEnv('Sonar') {
 					sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
-					
+				}	
             }
         }
         stage('Build') {
