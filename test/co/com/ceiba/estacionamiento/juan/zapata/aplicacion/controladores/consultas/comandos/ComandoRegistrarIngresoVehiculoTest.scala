@@ -1,8 +1,8 @@
-package aplicacion.controladores.comandos
+package co.com.ceiba.estacionamiento.juan.zapata.comandos
 
-import aplicacion.Dependencias
-import infraestructura.FalseConfigurations
-import mocks.mocksServicioIngresoVehiculo.MockRegistrarIngresoVehiculo
+import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.Dependencias
+import co.com.ceiba.estacionamiento.juan.zapata.factorys.infraestructura.FalseConfigurations
+import co.com.ceiba.estacionamiento.juan.zapata.factorys.mocksServicioIngresoVehiculo.MockRegistrarIngresoVehiculo
 import org.scalatestplus.play.PlaySpec
 import play.api.libs.json.{JsValue, Json}
 import play.api.test.Helpers._

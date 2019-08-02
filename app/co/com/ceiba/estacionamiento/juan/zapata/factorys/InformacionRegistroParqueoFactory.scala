@@ -1,4 +1,4 @@
-package factorys
+package co.com.ceiba.estacionamiento.juan.zapata
 
 import java.sql.Timestamp
 

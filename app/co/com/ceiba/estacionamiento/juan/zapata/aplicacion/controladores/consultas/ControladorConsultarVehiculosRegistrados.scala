@@ -1,13 +1,15 @@
-package aplicacion.controladores.consultas
+package co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.consultas
 
-import aplicacion.controladores.comandos.CommandHelper
-import aplicacion.servicios.ErrorServicio
-import aplicacion.{Dependencias, _}
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.Dependencias
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.servicios.ErrorServicio
+import co.com.ceiba.estacionamiento.juan.zapata.comandos.CommandHelper
+import co.com.ceiba.estacionamiento.juan.zapata.factorys.comandos.CommandHelper
+import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.{Dependencias, _}
 import javax.inject.{Inject, Singleton}
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
-import aplicacion.dtos.FormatosHttpDto._
+import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.dtos.FormatosHttpDto._
 
 @Singleton
 case class ControladorConsultarVehiculosRegistrados @Inject()(dependencias: Dependencias, controllerComponents: ControllerComponents) extends BaseController with CommandHelper {
