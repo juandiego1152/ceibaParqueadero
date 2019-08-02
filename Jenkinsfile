@@ -40,7 +40,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
                         gitTool: 'Git_Centos', submoduleCfg: [],
                         userRemoteConfigs: [[
                                 credentialsId: 'GitHub_juandiego1152',
-                                url: 'https://github.com/juandiego1152/ceibaParqueadero/tree/master'
+                                url: 'https://github.com/juandiego1152/ceibaParqueadero.git'
                             ]]
                     ])
 
