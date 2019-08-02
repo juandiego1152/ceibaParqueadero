@@ -69,23 +69,21 @@ pipeline { //Donde se va a ejecutar el Pipeline
                 withSonarQubeEnv('Sonar') {
                     sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner-Dproject.settings=sonar-project.properties"
                 }
-
 				withSonarQubeEnv('Sonar') {
-					sh "${tool name: 'SonarScanner'2,
-					type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
+					sh "${tool name: 'SonarScanner'2,type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
 
+                }
             }
-        }
-        stage('Build') {
-            steps {
-                echo "------------>Build<------------"
-                Prácticas Técnicas(Gerencia Técnica)
-				sh 'sbt clean assembly -Dsbt.log.noformat=true'
+            stage('Build') {
+                steps {
+                    echo "------------>Build<------------"
+                    Prácticas Técnicas(Gerencia Técnica)
+                    sh 'sbt clean assembly -Dsbt.log.noformat=true'
+                }
             }
         }
     }
     post {
-
         success {
             echo 'This will run only if successful'
 			junit 'build/test-results/test/*.xml'
