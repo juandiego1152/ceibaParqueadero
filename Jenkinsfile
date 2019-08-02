@@ -43,7 +43,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
         stage('Compile & Unit Tests') {
             steps {
                 echo "------------>Unit Tests<------------"
-				sh 'sbt clean update compile -Dsbt.log.noformat=true'
+				sh 'sbt clean update compile'
             }
         }
 
