@@ -77,7 +77,6 @@ pipeline { //Donde se va a ejecutar el Pipeline
             stage('Build') {
                 steps {
                     echo "------------>Build<------------"
-                    Prácticas Técnicas(Gerencia Técnica)
                     sh 'sbt clean assembly -Dsbt.log.noformat=true'
                 }
             }
