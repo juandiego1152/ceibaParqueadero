@@ -1,31 +1,40 @@
 pipeline { //Donde se va a ejecutar el Pipeline
-    agent any
+    agent {
+            label 'Slave5'
+        }
     options {
         //Mantener artefactos y salida de consola para el # específico de ejecucionesrecientes del Pipeline.
-        buildDiscarder(logRotator(numToKeepStr: '3'))
+        buildDiscarder(logRotator(numToKeepStr: '5'))
         //No permitir ejecuciones concurrentes de Pipeline
         disableConcurrentBuilds()
+        timestamps()
     }
+
+    environment {
+            SBT_HOME = tool name: 'SBT1.2.8_Centos'
+            SONARSCANNER_HOME = tool name: 'SonarScanner'
+            PATH = "${env.SBT_HOME}/bin:${env.PATH}"
+        }
 
     //Una sección que define las herramientas para “autoinstalar” y poner en la PATH
     tools {
-        jdk 'JDK8_Centos' //Preinstalada en la Configuración del Master
-        gradle 'Gradle4.5_Centos' //Preinstalada en la Configuración del Master
+        //Preinstalada en la Configuración del Master
+        jdk 'JDK8_Centos'
     }
     //Aquí comienzan los “items” del Pipeline
     stages {
         stage('Checkout') {
             steps {
                 echo "------------>Checkout<------------"
+
                 checkout([$class: 'GitSCM',
                         branches: [[name: '*/master']],
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [],
-                        gitTool: 'Git_Centos',
-                        submoduleCfg: [],
+                        gitTool: 'Git_Centos', submoduleCfg: [],
                         userRemoteConfigs: [[
                                 credentialsId: 'GitHub_juandiego1152',
-                                url: 'https://github.com/juandiego1152/ceibaParqueadero.git'
+                                url: 'https://github.com/juandiego1152/ceibaParqueadero/tree/master'
                             ]]
                     ])
 
@@ -34,45 +43,68 @@ pipeline { //Donde se va a ejecutar el Pipeline
         stage('Compile & Unit Tests') {
             steps {
                 echo "------------>Unit Tests<------------"
-				 sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt test"
-                 //sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt scalastyle"
+				sh 'sbt clean update compile -Dsbt.log.noformat=true'
+            }
+        }
+
+        stage ('Test'){
+            steps {
+                echo "------------>Tests<------------"
+                sh 'sbt clean coverage test coverageOff coverageReport -Dsbt.log.noformat=true'
+                sh 'cd target/scala-2.11/scoverage-report'
+                junit healthScaleFactor: 1.0, testResults: 'target/test-reports/**.xml'
+                step([$class: 'ScoveragePublisher', reportDir: 'target/scala-2.11/scoverage-report', reportFile: 'scoverage.xml'])
+            }
+            post{
+                failure {
+                    echo 'This will run only if failed'
+                    sh 'cd target/scala-2.11/scoverage-report'
+                    sh 'ls -R'
+                }
             }
         }
         stage('Static Code Analysis') {
             steps {
                 echo '------------>Análisis de código estático<------------'
                 withSonarQubeEnv('Sonar') {
-                    sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner-Dproject.settings=sonar-project.properties"
+                    sh "${tool name: 'SonarScanner',
+					type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner-Dproject.settings=sonar-project.properties"
                 }
+
+				withSonarQubeEnv('Sonar') {
+					sh "${tool name: 'SonarScanner'2,
+					type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
+
             }
         }
         stage('Build') {
             steps {
                 echo "------------>Build<------------"
-		        sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt coverage 'test-only * -- -F 4'"
-                sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt coverageReport"
-                sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt scalastyle || true"
-
+                Prácticas Técnicas(Gerencia Técnica)
+				sh 'sbt clean assembly -Dsbt.log.noformat=true'
             }
         }
     }
     post {
-        //always {
-          //  echo 'This will always run'
-        //}
+        always {
+            echo 'This will always run'
+        }
         success {
             echo 'This will run only if successful'
 			junit 'build/test-results/test/*.xml'
         }
         failure {
             echo 'This will run only if failed'
-			mail (to: 'juan.zapata@ceiba.com.co',subject: "FailedPipeline:${currentBuild.fullDisplayName}",body: "Something is wrongwith ${env.BUILD_URL}")
+			mail (
+			to: 'juan.zapata@ceiba.com.co',
+			subject: "FailedPipeline:${currentBuild.fullDisplayName}",
+			body: "Algo esta mal con: ${currentBuild.fullDisplayName}, visita el proyecto con la sigueinte url: ${env.BUILD_URL}")
         }
-        //unstable {
-          //  echo 'This will run only if the run was marked as unstable'
-        //}
-        //changed {
-          //  echo 'This will run only if the state of the Pipeline has changed' echo 'For example, if the Pipeline was previously failing but is now successful'
-        //}
+        unstable {
+            echo 'This will run only if the run was marked as unstable'
+        }
+        changed {
+            echo 'This will run only if the state of the Pipeline has changed' echo 'For example, if the Pipeline was previously failing but is now successful'
+        }
     }
 }
