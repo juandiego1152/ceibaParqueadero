@@ -56,18 +56,19 @@ pipeline { //Donde se va a ejecutar el Pipeline
         stage ('Test'){
             steps {
                 echo "------------>Tests<------------"
-                sh 'sbt clean coverage test coverageOff coverageReport -Dsbt.log.noformat=true'
-                sh 'cd target/scala-2.11/scoverage-report'
-                junit healthScaleFactor: 1.0, testResults: 'target/test-reports/**.xml'
-                step([$class: 'ScoveragePublisher', reportDir: 'target/scala-2.11/scoverage-report', reportFile: 'scoverage.xml'])
+            //    sh 'sbt clean coverage test coverageOff coverageReport -Dsbt.log.noformat=true'
+              //  sh 'cd target/scala-2.11/scoverage-report'
+                //junit healthScaleFactor: 1.0, testResults: 'target/test-reports/**.xml'
+                //step([$class: 'ScoveragePublisher', reportDir: 'target/scala-2.11/scoverage-report', reportFile: 'scoverage.xml'])
+                sh "sbt test"
             }
-            post{
-                failure {
-                    echo 'This will run only if failed'
-                    sh 'cd target/scala-2.11/scoverage-report'
-                    sh 'ls -R'
-                }
-            }
+            //post{
+              //  failure {
+                //    echo 'This will run only if failed'
+                  //  sh 'cd target/scala-2.11/scoverage-report'
+                    //sh 'ls -R'
+                //}
+            //}
         }
         //stage('Static Code Analysis') {
           //  steps {
