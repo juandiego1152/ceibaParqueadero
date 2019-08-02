@@ -1,16 +1,16 @@
-package co.com.ceiba.estacionamiento.juan.zapata.comandos
+package co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos
 
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.{Dependencias, _}
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.dtos.FormatosHttpDto._
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.dtos.placaVehiculoDto
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.servicios.ErrorServicio
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.dominio.modelos.RegistroParqueo
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.infraestructura.configuracion.MensajeExito
+import aplicacion.Dependencias
+import aplicacion.dtos.placaVehiculoDto
+import aplicacion.servicios.ErrorServicio
+import aplicacion.dtos.FormatosHttpDto._
+import infraestructura.configuracion.MensajeExito
 import javax.inject.{Inject, Singleton}
 import org.joda.time.DateTime
 import play.api.Logger
 import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
 import play.api.libs.json._
+import aplicacion._
 
 @Singleton
 case class ComandoSalidaDeVehiculo @Inject()(dependencias: Dependencias, controllerComponents: ControllerComponents) extends BaseController with CommandHelper {

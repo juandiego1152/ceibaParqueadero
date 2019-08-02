@@ -1,11 +1,11 @@
-package co.com.ceiba.estacionamiento.juan.zapata.comandos
+package co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos
 
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion._
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.Dependencias
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.dtos.FormatosHttpDto._
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.servicios.ErrorServicio
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.dominio.modelos.RegistroParqueo
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.infraestructura.configuracion.MensajeExito
+import aplicacion._
+import aplicacion.Dependencias
+import aplicacion.dtos.FormatosHttpDto._
+import aplicacion.servicios.ErrorServicio
+import dominio.modelos.RegistroParqueo
+import infraestructura.configuracion.MensajeExito
 import javax.inject.{Inject, Singleton}
 import org.joda.time.DateTime
 import play.api.Logger

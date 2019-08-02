@@ -1,4 +1,4 @@
-package co.com.ceiba.estacionamiento.juan.zapata.comandos
+package co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos
 
 import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.Dependencias
 import co.com.ceiba.estacionamiento.juan.zapata.factorys.infraestructura.FalseConfigurations

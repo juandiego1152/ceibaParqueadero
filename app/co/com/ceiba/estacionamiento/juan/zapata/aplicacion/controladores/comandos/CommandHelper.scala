@@ -1,9 +1,8 @@
-package co.com.ceiba.estacionamiento.juan.zapata.comandos
+package co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos
 
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.aplicacion.FormatoEither
+import aplicacion.FormatoEither
 import cats.implicits._
-import co.com.ceiba.estacionamiento.juan.zapata.factorys.infraestructura.configuracion.{Aplicacion, MensajeError}
-import co.com.ceiba.estacionamiento.juan.zapata.infraestructura.configuracion.Aplicacion
+import infraestructura.configuracion.{Aplicacion, MensajeError}
 import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
 import play.api.mvc.{AnyContent, Request}
 

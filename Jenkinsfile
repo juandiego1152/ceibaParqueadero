@@ -10,17 +10,11 @@ pipeline { //Donde se va a ejecutar el Pipeline
         timestamps()
     }
 
-    //environment {
-    //    SBT_HOME = tool name: 'SBT_1.2.8'
-      //  SONARSCANNER_HOME = tool name: 'SonarScanner'
-        //PATH = "${env.SBT_HOME}/bin:${env.PATH}"
-     //}
-
     environment {
        SBT_HOME  = "${tool name: 'Sbt_1.2.8', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}"
        //SONARSCANNER_HOME = tool name: 'SonarScanner'
        PATH = "${env.SBT_HOME}/bin:${env.PATH}"
-   }
+    }
 
     //Una sección que define las herramientas para “autoinstalar” y poner en la PATH
     tools {

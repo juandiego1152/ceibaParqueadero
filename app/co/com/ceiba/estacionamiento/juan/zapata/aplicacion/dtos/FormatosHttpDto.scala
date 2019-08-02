@@ -21,7 +21,6 @@ object FormatosHttpDto {
 
   implicit val tipoVehiculo = new Format[TipoVehiculo] {
     override def reads(json: JsValue): JsResult[TipoVehiculo] = {
-      //      val tipoVehiculo = (json \ "tipoVehiculo" ).as[String]
       JsSuccess(TipoVehiculo(json.as[String]))
     }
 
