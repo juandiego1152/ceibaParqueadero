@@ -1,6 +1,6 @@
 package dominio.modelos
 
-trait TipoVehiculo{
+trait TipoVehiculo {
   def descripcion: String
 }
 
@@ -12,7 +12,7 @@ object TipoVehiculo {
   }
 }
 
-object Motocicleta extends TipoVehiculo{
+object Motocicleta extends TipoVehiculo {
   override def descripcion: String = "Motocicleta"
 }
 

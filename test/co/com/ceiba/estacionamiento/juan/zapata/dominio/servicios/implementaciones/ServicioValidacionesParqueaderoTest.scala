@@ -1,11 +1,11 @@
-package dominio.servicios
+package co.com.ceiba.estacionamiento.juan.zapata.dominio.servicios.implementaciones
 
 import akka.Done
 import cats.implicits._
+import co.com.ceiba.estacionamiento.juan.zapata.factorys.InformacionRegistroParqueoFactory._
+import co.com.ceiba.estacionamiento.juan.zapata.factorys.RegistroParqueoFactory._
 import dominio.contantes.Constantes._
 import dominio.servicios.implementaciones.ServicioValidacionesParqueadero
-import factorys.InformacionRegistroParqueoFactory._
-import factorys.RegistroParqueoFactory._
 import infraestructura.configuracion.{MensajeError, Negocio}
 import org.scalatestplus.play.PlaySpec
 import org.specs2.mock.Mockito

@@ -22,7 +22,7 @@ trait ServicioValidacionesParqueadero extends ServicioValidacionesParqueaderoTra
     }
   }
 
-  private[servicios] def validacionesParaCarros(placa: String, cantidadVehiculosRegistrados: Int): FormatoEither[Done] = {
+  def validacionesParaCarros(placa: String, cantidadVehiculosRegistrados: Int): FormatoEither[Done] = {
     val diaActual = Calendar.getInstance.get(Calendar.DAY_OF_WEEK) - 1
     if (cantidadVehiculosRegistrados >= CantidadMaximaCarros)
       MensajeError(Negocio, "No hay capacidad en celdas para mas vehiculos").asLeft

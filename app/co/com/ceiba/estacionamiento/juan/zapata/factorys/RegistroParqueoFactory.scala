@@ -1,4 +1,4 @@
-package co.com.ceiba.estacionamiento.juan.zapata
+package co.com.ceiba.estacionamiento.juan.zapata.factorys
 
 import dominio.modelos.{Carro, Motocicleta, RegistroParqueo, TipoVehiculo}
 

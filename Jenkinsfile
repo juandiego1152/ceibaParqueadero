@@ -83,10 +83,10 @@ pipeline { //Donde se va a ejecutar el Pipeline
         //}
     }
     post {
-        //success {
-          //  echo 'This will run only if successful'
-		//	junit 'build/test-results/test/*.xml'
-        //}
+        success {
+            echo 'This will run only if successful'
+			junit 'build/test-results/test/*.xml'
+        }
         failure {
             echo 'This will run only if failed'
 			mail (

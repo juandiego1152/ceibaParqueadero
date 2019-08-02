@@ -1,9 +1,9 @@
-package co.com.ceiba.estacionamiento.juan.zapata
+package co.com.ceiba.estacionamiento.juan.zapata.factorys
 
 import java.sql.Timestamp
 
+import dominio.modelos._
 import dominio.contantes.Constantes._
-import dominio.modelos.{Carro, InformacionVehiculoParqueadero, Motocicleta}
 
 object InformacionRegistroParqueoFactory {
 
