@@ -26,7 +26,6 @@ pipeline { //Donde se va a ejecutar el Pipeline
         stage('Checkout') {
             steps {
                 echo "------------>Checkout<------------"
-
                 checkout([$class: 'GitSCM',
                         branches: [[name: '*/master']],
                         doGenerateSubmoduleConfigurations: false,
@@ -35,18 +34,16 @@ pipeline { //Donde se va a ejecutar el Pipeline
                         userRemoteConfigs: [[
                                 credentialsId: 'GitHub_juandiego1152',
                                 url: 'https://github.com/juandiego1152/ceibaParqueadero.git'
-                            ]]
-                    ])
-
+                         ]]
+                ])
             }
         }
-        stage('Compile & Unit Tests') {
+        stage('Compile') {
             steps {
                 echo "------------>Unit Tests<------------"
 				sh 'sbt clean update compile'
             }
         }
-
         stage ('Test'){
             steps {
                 echo "------------>Tests<------------"
@@ -54,6 +51,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
               //  sh 'cd target/scala-2.11/scoverage-report'
                 //junit healthScaleFactor: 1.0, testResults: 'target/test-reports/**.xml'
                 //step([$class: 'ScoveragePublisher', reportDir: 'target/scala-2.11/scoverage-report', reportFile: 'scoverage.xml'])
+
                 sh "sbt test"
             }
             //post{
@@ -84,11 +82,10 @@ pipeline { //Donde se va a ejecutar el Pipeline
     }
     post {
         success {
-            echo 'This will run only if successful'
-			junit 'build/test-results/test/*.xml'
+            echo 'Finalizado Correctamente'
         }
         failure {
-            echo 'This will run only if failed'
+            echo 'Fallo La Ejecucion'
 			mail (
 			to: 'juan.zapata@ceiba.com.co',
 			subject: "FailedPipeline:${currentBuild.fullDisplayName}",
