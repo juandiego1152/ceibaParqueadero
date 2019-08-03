@@ -83,6 +83,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
     post {
         success {
             echo 'Finalizado Correctamente'
+			//junit 'build/test-results/test/*.xml'
         }
         failure {
             echo 'Fallo La Ejecucion'

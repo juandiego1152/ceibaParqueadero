@@ -1,5 +1,5 @@
-name := """parqueaderoCeiba"""
-organization := "ceibajdl"
+name := """ceibaestacionamiento"""
+organization := "juanzapata"
 
 version := "1.0"
 
@@ -10,7 +10,7 @@ scalaVersion := "2.12.8"
 libraryDependencies ++= Seq(
   ws,
   guice,
-//  filters,
+  filters,
   specs2 % "provided",
   "com.typesafe.slick"     %% "slick"              % "3.2.0",
   "org.postgresql"          % "postgresql"         % "42.2.2",
@@ -20,7 +20,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick"     %% "slick-hikaricp"     % "3.2.0",
   "io.monix"               %% "monix"              % "3.0.0-RC2",
   "com.h2database"          % "h2"                 % "1.4.198" % Test,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.1"   % Test,
+  "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"   % Test,
+  "com.typesafe.play" %% "play-mailer-guice" % "6.0.1"
 //  "org.mockito"             % "mockito-all" % "1.10.19" % Test,
 //  "org.specs2" %% "specs2-mock" % "4.6.0" % Test
 //  "org.mockito"             %   "mockito-core"     % "1.10.19" % "provided"
