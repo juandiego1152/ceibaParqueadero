@@ -22,7 +22,4 @@ libraryDependencies ++= Seq(
   "com.h2database"          % "h2"                 % "1.4.198" % Test,
   "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"   % Test,
   "com.typesafe.play" %% "play-mailer-guice" % "6.0.1"
-//  "org.mockito"             % "mockito-all" % "1.10.19" % Test,
-//  "org.specs2" %% "specs2-mock" % "4.6.0" % Test
-//  "org.mockito"             %   "mockito-core"     % "1.10.19" % "provided"
 )

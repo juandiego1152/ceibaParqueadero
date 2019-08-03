@@ -1,10 +1,14 @@
-pipeline { //Donde se va a ejecutar el Pipeline
+pipeline {
+
+    //Donde se va a ejecutar el Pipeline
     agent {
             label 'Slave5'
         }
     options {
+
         //Mantener artefactos y salida de consola para el # específico de ejecucionesrecientes del Pipeline.
         buildDiscarder(logRotator(numToKeepStr: '5'))
+
         //No permitir ejecuciones concurrentes de Pipeline
         disableConcurrentBuilds()
         timestamps()
@@ -21,6 +25,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
         //Preinstalada en la Configuración del Master
         jdk 'JDK8_Centos'
     }
+
     //Aquí comienzan los “items” del Pipeline
     stages {
         stage('Checkout') {
@@ -63,15 +68,17 @@ pipeline { //Donde se va a ejecutar el Pipeline
             //}
         }
         //stage('Static Code Analysis') {
-          //  steps {
-            //    echo '------------>Análisis de código estático<------------'
-              //  withSonarQubeEnv('Sonar') {
-                //    sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner-Dproject.settings=sonar-project.properties"
-                //}
+            steps {
+                echo '------------>Análisis de código estático<------------'
+
+                withSonarQubeEnv('Sonar') {
+                    sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner-Dproject.settings=sonar-project.properties"
+                }
+
 				//withSonarQubeEnv('Sonar') {
-				//	sh "${tool name: 'SonarScanner'2,type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
+				//	sh "${tool name: 'SonarScanner',type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
                 //}
-            //}
+            }
             //stage('Build') {
              //   steps {
                //     echo "------------>Build<------------"
@@ -83,7 +90,7 @@ pipeline { //Donde se va a ejecutar el Pipeline
     post {
         success {
             echo 'Finalizado Correctamente'
-			//junit 'build/test-results/test/*.xml'
+			junit 'build/test-results/test/*.xml'
         }
         failure {
             echo 'Fallo La Ejecucion'
