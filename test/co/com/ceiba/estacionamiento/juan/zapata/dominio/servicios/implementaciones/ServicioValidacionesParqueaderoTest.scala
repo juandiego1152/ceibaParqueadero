@@ -1,5 +1,7 @@
 package co.com.ceiba.estacionamiento.juan.zapata.dominio.servicios.implementaciones
 
+import org.scalatestplus.play.PlaySpec
+import org.specs2.mock.Mockito
 import akka.Done
 import cats.implicits._
 import co.com.ceiba.estacionamiento.juan.zapata.factorys.InformacionRegistroParqueoFactory._
@@ -7,8 +9,6 @@ import co.com.ceiba.estacionamiento.juan.zapata.factorys.RegistroParqueoFactory.
 import dominio.contantes.Constantes._
 import dominio.servicios.implementaciones.ServicioValidacionesParqueadero
 import infraestructura.configuracion.{MensajeError, Negocio}
-import org.scalatestplus.play.PlaySpec
-import org.specs2.mock.Mockito
 
 class mockServicioValidacionesParqueadero extends ServicioValidacionesParqueadero
 
@@ -79,7 +79,6 @@ class ServicioValidacionesParqueaderoTest extends PlaySpec with Mockito {
     }
   }
 
-
   "Al usar el metodo: generarValorServicioParqueo" when {
 
     "Un vehiculo cumple dos horas en el parqueadero" must {
@@ -145,9 +144,5 @@ class ServicioValidacionesParqueaderoTest extends PlaySpec with Mockito {
         respuesta mustBe ValorHoraCarro
       }
     }
-
-
   }
-
-
 }
