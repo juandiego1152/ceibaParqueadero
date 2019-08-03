@@ -67,7 +67,7 @@ pipeline {
                 //}
             //}
         }
-        //stage('Static Code Analysis') {
+        stage('Static Code Analysis') {
             steps {
                 echo '------------>Análisis de código estático<------------'
 
@@ -85,7 +85,7 @@ pipeline {
                  //   sh 'sbt clean assembly -Dsbt.log.noformat=true'
                 //}
             //}
-        //}
+        }
     }
     post {
         success {
