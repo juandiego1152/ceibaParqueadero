@@ -14,11 +14,7 @@ class ComandoRegistrarIngresoVehiculoTest extends PlaySpec with MockRegistrarIng
   "Al usar el metodo" when {
     "Vamos a guardar un nuevo registro de vehiculo" must {
       "Guardar correctamente" in new WithApplication {
-        val jsonEntrada = Json.toJson( """{"placaVehiculo": "ALS222","tipoVehiculo": "Carro" }""")
-
-        println(jsonEntrada)
-
-        val request = FakeRequest("POST", "/ceibaestacionamiento/guardar-registro").withJsonBody(Json.parse("""{ "placaVehiculo": "ALS211","tipoVehiculo": "Carro"}"""))
+        val request = FakeRequest("POST", "/ceibaestacionamiento/guardar-registro").withJsonBody(Json.parse("""{ "placaVehiculo": "BLS211","tipoVehiculo": "Carro"}"""))
 
         val Some(result) = route(app, request)
 
