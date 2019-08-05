@@ -10,14 +10,14 @@ object InformacionParqueoTransformer {
   def aInformacionParqueoRegistro(informacion: RegistroParqueo, horaFechaRegistro: Timestamp) = InformacionParqueoRegistro(
     informacion.placaVehiculo,
     informacion.tipoVehiculo.descripcion,
-    informacion.esAltoCilindraje.getOrElse(false),
+    informacion.cilindraje.getOrElse(0),
     horaFechaRegistro
   )
 
   def aInformacionVehiculoParqueadero(informacion: InformacionParqueoRegistro) = InformacionVehiculoParqueadero(
     informacion.placaVehiculo,
     TipoVehiculo(informacion.tipoVehiculo),
-    informacion.esAltoCilindraje,
+    informacion.cilindraje,
     informacion.horaFechaIngresoVehiculo
   )
 

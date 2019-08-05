@@ -90,7 +90,7 @@ pipeline {
     post {
         success {
             echo 'Finalizado Correctamente'
-			junit 'build/test-results/test/*.xml'
+			//junit 'build/test-results/test/*.xml'
         }
         failure {
             echo 'Fallo La Ejecucion'

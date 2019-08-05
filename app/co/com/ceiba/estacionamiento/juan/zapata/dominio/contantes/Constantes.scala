@@ -18,4 +18,6 @@ object Constantes{
 
   val ValorExtraPorAltoCilindraje = 2000
 
+  val CilindrajeParaCategoriaAltoCilindraje = 500
+
 }

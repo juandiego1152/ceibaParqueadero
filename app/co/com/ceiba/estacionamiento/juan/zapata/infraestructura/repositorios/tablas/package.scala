@@ -16,12 +16,12 @@ package object tablas {
 
     def tipoVehiculo = column[String]("tipoVehiculo")
 
-    def esAltoCilindraje = column[Boolean]("esAltoCilindraje")
+    def cilindraje = column[Int]("cilindraje")
 
     def horaFechaEntradaVehiculo = column[Timestamp]("horaFechaEntradaVehiculo")
 
     def pk = primaryKey("tb_parqueadero_pk", placaVehiculo)
 
-    def * = (placaVehiculo, tipoVehiculo, esAltoCilindraje, horaFechaEntradaVehiculo) <> (InformacionParqueoRegistro.tupled, InformacionParqueoRegistro.unapply)
+    def * = (placaVehiculo, tipoVehiculo, cilindraje, horaFechaEntradaVehiculo) <> (InformacionParqueoRegistro.tupled, InformacionParqueoRegistro.unapply)
   }
 }

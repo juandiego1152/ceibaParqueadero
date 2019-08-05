@@ -5,6 +5,6 @@ import java.sql.Timestamp
 case class InformacionParqueoRegistro(
                                        placaVehiculo: String,
                                        tipoVehiculo: String,
-                                       esAltoCilindraje: Boolean,
+                                       cilindraje: Int,
                                        horaFechaIngresoVehiculo: Timestamp
                                      )

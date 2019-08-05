@@ -77,7 +77,7 @@ trait ServicioValidacionesParqueadero extends ServicioValidacionesParqueaderoTra
       case Carro => (diasParqueado * ValorDiaCarro) + (horasParqueado * ValorHoraCarro)
       case Motocicleta => {
         val valorParqueo = (diasParqueado * ValorDiaMoto) + (horasParqueado * ValorHoraMoto)
-        if (informacionVehiculoParqueadero.esAltoCilindraje)
+        if (informacionVehiculoParqueadero.cilindraje >= CilindrajeParaCategoriaAltoCilindraje)
           valorParqueo + ValorExtraPorAltoCilindraje
         else
           valorParqueo
