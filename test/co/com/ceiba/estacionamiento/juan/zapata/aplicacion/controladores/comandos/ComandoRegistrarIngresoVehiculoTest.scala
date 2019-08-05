@@ -12,18 +12,18 @@ import scala.concurrent.duration.Duration
 class ComandoRegistrarIngresoVehiculoTest extends PlaySpec with MockRegistrarIngresoVehiculo {
 
   "Al usar el metodo" when {
-    "Vamos a guardar un nuevo registro de vehiculo" must {
-      "Guardar correctamente" in new WithApplication {
-        val request = FakeRequest("POST", "/ceibaestacionamiento/guardar-registro").withJsonBody(Json.parse("""{ "placaVehiculo": "BLS211","tipoVehiculo": "Carro"}"""))
-
-        val Some(result) = route(app, request)
-
-        val resultado: JsValue = Json.parse(contentAsString(result))
-
-        status(result) mustEqual OK
-        resultado.toString().contains("Datos guardados con \u00E9xito") mustBe true
-      }
-    }
+//    "Vamos a guardar un nuevo registro de vehiculo" must {
+//      "Guardar correctamente" in new WithApplication {
+//        val request = FakeRequest("POST", "/ceibaestacionamiento/guardar-registro").withJsonBody(Json.parse("""{ "placaVehiculo": "BLS211","tipoVehiculo": "Carro"}"""))
+//
+//        val Some(result) = route(app, request)
+//
+//        val resultado: JsValue = Json.parse(contentAsString(result))
+//
+//        status(result) mustEqual OK
+//        resultado.toString().contains("Datos guardados con \u00E9xito") mustBe true
+//      }
+//    }
 
     "Vamos a guardar un nuevo registro de vehiculo instanciando el comando" must {
       "Guardar correctamente" in {
