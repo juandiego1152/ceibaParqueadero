@@ -1,7 +1,7 @@
 package co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos
 
 import aplicacion.Dependencias
-import aplicacion.dtos.placaVehiculoDto
+import aplicacion.dtos.PlacaVehiculoDto
 import aplicacion.servicios.ErrorServicio
 import aplicacion.dtos.FormatosHttpDto._
 import infraestructura.configuracion.MensajeExito
@@ -19,7 +19,7 @@ case class ComandoSalidaDeVehiculo @Inject()(dependencias: Dependencias, control
 
     implicit request =>
 
-      request.obtenerDatosComoEither[placaVehiculoDto].aFormatoEitherT
+      request.obtenerDatosComoEither[PlacaVehiculoDto].aFormatoEitherT
         .flatMap {
           dependencias.servicioParqueadero.registrarSalidaVehiculo(_).run(dependencias)
         }

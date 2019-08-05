@@ -37,7 +37,7 @@ object FormatosHttpDto {
 
   implicit val mensajeExito: OWrites[MensajeExito] = Json.writes[MensajeExito]
 
-  implicit val placaVehiculo: OFormat[placaVehiculoDto] = Json.format[placaVehiculoDto]
+  implicit val placaVehiculo: OFormat[PlacaVehiculoDto] = Json.format[PlacaVehiculoDto]
 
 
 }

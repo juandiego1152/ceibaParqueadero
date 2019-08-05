@@ -8,9 +8,9 @@ package object tablas {
 
   import slick.jdbc.PostgresProfile.api._
 
-  val TB_parqueadero = TableQuery[TB_PARQUEADERO]
+  val TB_parqueadero = TableQuery[TbParqueadero]
 
-  class TB_PARQUEADERO(tag: Tag) extends Table[InformacionParqueoRegistro](tag, "tb_parqueadero") {
+  class TbParqueadero(tag: Tag) extends Table[InformacionParqueoRegistro](tag, "tb_parqueadero") {
 
     def placaVehiculo = column[String]("placaVehiculo")
 

@@ -1,8 +1,7 @@
 package aplicacion.dtos
 
 
-
-case class placaVehiculoDto(
-                               placaVehiculo: String
-                             )
+case class PlacaVehiculoDto(
+                             placaVehiculo: String
+                           )
 

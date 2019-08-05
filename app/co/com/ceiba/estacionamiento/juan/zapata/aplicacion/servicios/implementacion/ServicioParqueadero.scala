@@ -3,7 +3,7 @@ package aplicacion.servicios.implementacion
 import java.sql.Timestamp
 
 import akka.Done
-import aplicacion.dtos.placaVehiculoDto
+import aplicacion.dtos.PlacaVehiculoDto
 import aplicacion.{Dependencias, _}
 import cats.data.{EitherT, Reader}
 import cats.implicits._
@@ -54,7 +54,7 @@ trait ServicioParqueadero {
       MensajeError(Aplicacion, "El vehiculo no tiene una categoria aceptable").invalidNel
   }
 
-  def registrarSalidaVehiculo(placaVehiculo: placaVehiculoDto): Reader[Dependencias, FormatoEitherT[Double]] = Reader {
+  def registrarSalidaVehiculo(placaVehiculo: PlacaVehiculoDto): Reader[Dependencias, FormatoEitherT[Double]] = Reader {
     case dependencias: Dependencias =>
       dependencias.repoParqueadero.consultarVehiculoRegistrado(placaVehiculo.placaVehiculo)
         .run(dependencias.databaseConfig)

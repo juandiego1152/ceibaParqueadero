@@ -38,8 +38,6 @@ trait ServicioValidacionesParqueadero extends ServicioValidacionesParqueaderoTra
     val horaFechaActual = new Timestamp(System.currentTimeMillis())
     val diferencia = (horaFechaActual.getTime - registroParqueo.horaFechaIngresoVehiculo.getTime)
     val minutos = TimeUnit.MILLISECONDS.toMinutes(diferencia)
-    //    val minutos = (registroParqueo.horaFechaIngresoVehiculo.getTime - horaFechaActual.getTime)/1000
-
     val diasYHorasParqueado = validarTiempoVehiculoParqueado(minutos.toInt)
 
     valorFinalServicio(registroParqueo, diasYHorasParqueado)
