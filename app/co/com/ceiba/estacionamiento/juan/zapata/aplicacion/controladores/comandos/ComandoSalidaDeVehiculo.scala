@@ -16,7 +16,7 @@ import aplicacion._
 case class ComandoSalidaDeVehiculo @Inject()(dependencias: Dependencias, controllerComponents: ControllerComponents) extends BaseController with CommandHelper {
 
   def execute: Action[AnyContent] = Action.async(parse.anyContent) {
-
+    Logger.logger.debug("Entro al comando salida de vehiculo")
     implicit request =>
 
       request.obtenerDatosComoEither[PlacaVehiculoDto].aFormatoEitherT

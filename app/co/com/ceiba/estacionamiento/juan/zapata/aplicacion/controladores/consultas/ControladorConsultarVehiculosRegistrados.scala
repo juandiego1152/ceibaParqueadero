@@ -13,6 +13,7 @@ import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
 case class ControladorConsultarVehiculosRegistrados @Inject()(dependencias: Dependencias, controllerComponents: ControllerComponents) extends BaseController with CommandHelper {
 
   def execute: Action[AnyContent] = Action.async(parse.anyContent) {
+    Logger.logger.debug("Entro al comando consulta")
 
     implicit request =>
       dependencias.repoParqueadero.consultarVehiculosRegistrados().run(dependencias.databaseConfig)

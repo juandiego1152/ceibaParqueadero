@@ -16,7 +16,7 @@ import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
 case class ComandoRegistrarIngresoVehiculo @Inject()(dependencias: Dependencias, controllerComponents: ControllerComponents) extends BaseController with CommandHelper {
 
   def execute: Action[AnyContent] = Action.async(parse.anyContent) {
-
+    Logger.logger.debug("Entro al comando guardar")
     implicit request =>
 
       request.obtenerDatosComoEither[RegistroParqueo].aFormatoEitherT
