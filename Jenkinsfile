@@ -45,7 +45,7 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                echo "------------>Unit Tests<------------"
+                echo "------------>Compile<------------"
 				sh 'sbt clean update compile'
             }
         }
