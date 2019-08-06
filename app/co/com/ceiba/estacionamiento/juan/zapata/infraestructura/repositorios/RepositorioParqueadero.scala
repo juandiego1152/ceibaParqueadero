@@ -7,7 +7,7 @@ import aplicacion.{FormatoEither, FormatoEitherT}
 import cats.data.{EitherT, Reader}
 import cats.implicits._
 import dominio.contratos.RepositorioParqueaderoTraits
-import dominio.modelos.{InformacionVehiculoParqueadero, RegistroParqueo}
+import dominio.modelos.{InformacionVehiculoParqueadero, RegistroParqueo, TipoVehiculo}
 import infraestructura.configuracion.{MensajeError, Tecnico}
 import infraestructura.repositorios.tablas._
 import infraestructura.transformadores.InformacionParqueoTransformer._
@@ -34,11 +34,11 @@ trait RepositorioParqueadero extends RepositorioParqueaderoTraits with JdbcProfi
       }
   }
 
-  def consultarCantidadVehiculosRegistrados(): Reader[DatabaseConfig[JdbcProfile], FormatoEitherT[Int]] = Reader {
+  def consultarCantidadVehiculosRegistrados(tipo: TipoVehiculo): Reader[DatabaseConfig[JdbcProfile], FormatoEitherT[Int]] = Reader {
     dbConfig: DatabaseConfig[JdbcProfile] =>
       EitherT {
-        Task.fromFuture(dbConfig.db.run(TB_parqueadero.size.result))
-          .map(_.asRight)
+        Task.fromFuture(dbConfig.db.run(TB_parqueadero.filter(_.tipoVehiculo === tipo.descripcion).result))
+          .map(x => x.size.asRight)
           .onErrorRecover[FormatoEither[Int]] {
           case error: Throwable => {
             Logger.logger.error(error.getMessage)

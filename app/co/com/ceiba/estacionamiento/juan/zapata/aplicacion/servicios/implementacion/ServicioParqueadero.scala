@@ -17,7 +17,7 @@ trait ServicioParqueadero {
   def registrarIngresoVehiculo(registroVehiculo: RegistroParqueo): Reader[Dependencias, FormatoEitherT[Done]] = Reader {
     case dependencia: Dependencias =>
 
-      dependencia.repoParqueadero.consultarCantidadVehiculosRegistrados().run(dependencia.databaseConfig).flatMap(
+      dependencia.repoParqueadero.consultarCantidadVehiculosRegistrados(registroVehiculo.tipoVehiculo).run(dependencia.databaseConfig).flatMap(
         cantidadVehiculos => ServicioValidacionesParqueadero.validarPermiteIngresarVehiculos(registroVehiculo, cantidadVehiculos)
           .fold(
             error => EitherT.leftT(error),
