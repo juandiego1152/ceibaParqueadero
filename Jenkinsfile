@@ -57,7 +57,10 @@ pipeline {
                 //junit healthScaleFactor: 1.0, testResults: 'target/test-reports/**.xml'
                 //step([$class: 'ScoveragePublisher', reportDir: 'target/scala-2.11/scoverage-report', reportFile: 'scoverage.xml'])
 
-                sh "sbt test"
+                sh "sbt clean coverage test coverageOff coverageReport"
+                sh 'cd target/scala-2.12/scoverage-report'
+                junit healthScaleFactor: 1.0, testResults: 'target/test-reports/**.xml'
+                step([$class: 'ScoveragePublisher', reportDir: 'target/scala-2.12/scoverage-report', reportFile: 'scoverage.xml'])
             }
             //post{
               //  failure {
