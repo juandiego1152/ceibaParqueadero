@@ -52,11 +52,6 @@ pipeline {
         stage ('Test'){
             steps {
                 echo "------------>Tests<------------"
-            //    sh 'sbt clean coverage test coverageOff coverageReport -Dsbt.log.noformat=true'
-              //  sh 'cd target/scala-2.11/scoverage-report'
-                //junit healthScaleFactor: 1.0, testResults: 'target/test-reports/**.xml'
-                //step([$class: 'ScoveragePublisher', reportDir: 'target/scala-2.11/scoverage-report', reportFile: 'scoverage.xml'])
-
                 sh "sbt clean coverage test coverageOff coverageReport"
                 sh 'cd target/scala-2.12/scoverage-report'
                 junit healthScaleFactor: 1.0, testResults: 'target/test-reports/**.xml'
