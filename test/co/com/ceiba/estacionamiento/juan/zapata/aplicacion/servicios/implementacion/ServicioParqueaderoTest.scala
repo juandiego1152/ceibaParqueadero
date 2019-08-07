@@ -15,7 +15,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores._
 import co.com.ceiba.estacionamiento.juan.zapata.factorys.InformacionRegistroParqueoFactory._
-import dominio.modelos.{SinCategoria, TipoVehiculo}
+import dominio.modelos.{TipoVehiculo}
 import infraestructura.configuracion.{Aplicacion, MensajeError, Tecnico}
 
 class mockServicioParqueadero extends ServicioParqueadero
@@ -99,7 +99,7 @@ class ServicioParqueaderoTest extends PlaySpec with Mockito with MockRepositorio
       "Retornar el error generado" in {
         val spyServicio = spy(new mockServicioParqueadero)
 
-        val registroParqueo = registroParqueoMotoBajoCilindraje.copy(tipoVehiculo = SinCategoria)
+        val registroParqueo = registroParqueoMotoBajoCilindraje.copy(tipoVehiculo = TipoVehiculo("Sin Categoria"))
 
         val respuesta = spyServicio.validarInformacion(registroParqueo)
 
