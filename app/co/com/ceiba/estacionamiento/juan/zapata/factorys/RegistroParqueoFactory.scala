@@ -6,7 +6,7 @@ object RegistroParqueoFactory {
 
   def registroParqueoCarro = RegistroParqueo("ALS21D", Carro, None)
 
-//  def registroParqueoMotoAltoCilindraje = RegistroParqueo("ALS21D", Motocicleta, Some(650))
+  def registroParqueoMotoAltoCilindraje = RegistroParqueo("ALS21D", Motocicleta, Some(650))
 
   def registroParqueoMotoBajoCilindraje = RegistroParqueo("ALS21D", Motocicleta, Some(200))
 

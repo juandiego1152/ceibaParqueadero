@@ -26,6 +26,11 @@ trait MockRepositorioParqueadero extends Mockito {
       EitherT.rightT(Some(inforVehiculo))
     }
   }
+  def mockearFuncionConsultarVehiculoRegistradoVacio(dependencia: FalseConfigurations ) = {
+    dependencia.repoParqueadero.consultarVehiculoRegistrado(anyString) returns Reader { _ =>
+      EitherT.rightT(None)
+    }
+  }
 
   def mockearFuncionConsultarVehiculoRegistradoError(dependencia: FalseConfigurations) = {
     dependencia.repoParqueadero.consultarVehiculoRegistrado(anyString) returns Reader { _ =>
