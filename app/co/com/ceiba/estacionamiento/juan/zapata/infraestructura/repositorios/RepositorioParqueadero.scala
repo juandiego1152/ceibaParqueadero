@@ -3,7 +3,7 @@ package infraestructura.repositorios
 import java.sql.Timestamp
 
 import akka.Done
-import aplicacion.{FormatoEither, FormatoEitherT}
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores._
 import cats.data.{EitherT, Reader}
 import cats.implicits._
 import dominio.contratos.RepositorioParqueaderoTraits

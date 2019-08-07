@@ -1,10 +1,10 @@
 package aplicacion.servicios.traits
 
-import aplicacion.FormatoEitherT
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores._
 import akka.Done
-import aplicacion.Dependencias
 import aplicacion.dtos.PlacaVehiculoDto
 import cats.data.Reader
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.Dependencias
 import dominio.modelos.RegistroParqueo
 
 trait ServicioParqueaderoTraits {

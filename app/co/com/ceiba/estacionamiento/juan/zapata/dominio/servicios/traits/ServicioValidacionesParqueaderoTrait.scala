@@ -1,7 +1,7 @@
 package dominio.servicios.traits
 
 import akka.Done
-import aplicacion.FormatoEither
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores._
 import dominio.modelos.{InformacionVehiculoParqueadero, RegistroParqueo}
 
 trait ServicioValidacionesParqueaderoTrait {

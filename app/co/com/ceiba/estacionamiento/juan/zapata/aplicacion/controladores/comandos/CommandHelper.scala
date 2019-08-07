@@ -1,7 +1,7 @@
 package co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos
 
-import aplicacion.FormatoEither
 import cats.implicits._
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.FormatoEither
 import infraestructura.configuracion.{Aplicacion, MensajeError}
 import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
 import play.api.mvc.{AnyContent, Request}

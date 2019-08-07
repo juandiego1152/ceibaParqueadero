@@ -1,11 +1,11 @@
 pipeline {
-
     //Donde se va a ejecutar el Pipeline
+
     agent {
             label 'SlaveInduccion'
         }
-    options {
 
+    options {
         //Mantener artefactos y salida de consola para el # específico de ejecucionesrecientes del Pipeline.
         buildDiscarder(logRotator(numToKeepStr: '5'))
 
@@ -57,35 +57,20 @@ pipeline {
                 junit healthScaleFactor: 1.0, testResults: 'target/test-reports/**.xml'
                 step([$class: 'ScoveragePublisher', reportDir: 'target/scala-2.12/scoverage-report', reportFile: 'scoverage.xml'])
             }
-            //post{
-              //  failure {
-                //    echo 'This will run only if failed'
-                  //  sh 'cd target/scala-2.11/scoverage-report'
-                    //sh 'ls -R'
-                //}
-            //}
         }
         stage('Static Code Analysis') {
             steps {
                 echo '------------>Análisis de código estático<------------'
-
                 withSonarQubeEnv('Sonar') {
                     sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
                 }
-
             }
-            //stage('Build') {
-             //   steps {
-               //     echo "------------>Build<------------"
-                 //   sh 'sbt clean assembly -Dsbt.log.noformat=true'
-                //}
-            //}
         }
     }
     post {
         success {
             echo 'Finalizado Correctamente'
-			//junit 'build/test-results/test/*.xml'
+			junit 'target/test-reports/*.xml'
         }
         failure {
             echo 'Fallo La Ejecucion'

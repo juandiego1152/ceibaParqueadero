@@ -1,4 +1,4 @@
-package co.com.ceiba.estacionamiento.juan.zapata.dominio.servicios.implementaciones
+package co.com.ceiba.estacionamiento.juan.zapata.dominio.servicios.implementacion
 
 import org.scalatestplus.play.PlaySpec
 import org.specs2.mock.Mockito

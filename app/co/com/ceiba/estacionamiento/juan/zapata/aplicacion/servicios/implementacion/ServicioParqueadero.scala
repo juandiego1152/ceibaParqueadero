@@ -4,9 +4,9 @@ import java.sql.Timestamp
 
 import akka.Done
 import aplicacion.dtos.PlacaVehiculoDto
-import aplicacion.{Dependencias, _}
 import cats.data.{EitherT, Reader}
 import cats.implicits._
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores._
 import dominio.modelos.{RegistroParqueo, SinCategoria, TipoVehiculo}
 import dominio.servicios.implementaciones.ServicioValidacionesParqueadero
 import infraestructura.configuracion.{Aplicacion, MensajeError}
@@ -18,7 +18,7 @@ trait ServicioParqueadero {
     case dependencia: Dependencias =>
 
       dependencia.repoParqueadero.consultarCantidadVehiculosRegistrados(registroVehiculo.tipoVehiculo).run(dependencia.databaseConfig).flatMap(
-        cantidadVehiculos => ServicioValidacionesParqueadero.validarPermiteIngresarVehiculos(registroVehiculo, cantidadVehiculos)
+        cantidadVehiculos => dependencia.servicioValidacionesParqueadero.validarPermiteIngresarVehiculos(registroVehiculo, cantidadVehiculos)
           .fold(
             error => EitherT.leftT(error),
             _ => {
@@ -34,14 +34,14 @@ trait ServicioParqueadero {
       )
   }
 
-  private[servicios] def validarInformacion(informacionParqueo: RegistroParqueo): FormatoEither[Done] = {
+//  private[servicios] def validarInformacion(informacionParqueo: RegistroParqueo): FormatoEither[Done] = {
+  def validarInformacion(informacionParqueo: RegistroParqueo): FormatoEither[Done] = {
     (validarFormatoPlaca(informacionParqueo.placaVehiculo),
       validarTipoVehiculo(informacionParqueo.tipoVehiculo)).mapN((_, _) => Done).aFormatoEither
   }
 
   private[servicios] def validarFormatoPlaca(placa: String): FormatoValidatedNel[Done] = {
     if (placa.size == 6)
-    //      if(placa.substring(0,3).contains(i))
       Done.valid
     else
       MensajeError(Aplicacion, "Hay un error en el formato de la placa").invalidNel
@@ -54,7 +54,7 @@ trait ServicioParqueadero {
       MensajeError(Aplicacion, "El vehiculo no tiene una categoria aceptable").invalidNel
   }
 
-  def registrarSalidaVehiculo(placaVehiculo: PlacaVehiculoDto): Reader[Dependencias, FormatoEitherT[Double]] = Reader {
+  def salidaVehiculo(placaVehiculo: PlacaVehiculoDto): Reader[Dependencias, FormatoEitherT[Double]] = Reader {
     case dependencias: Dependencias =>
       dependencias.repoParqueadero.consultarVehiculoRegistrado(placaVehiculo.placaVehiculo)
         .run(dependencias.databaseConfig)
@@ -62,7 +62,7 @@ trait ServicioParqueadero {
           case Some(registro) => {
             for {
               _ <- dependencias.repoParqueadero.eliminarRegistroParqueadero(placaVehiculo.placaVehiculo).run(dependencias.databaseConfig)
-              valorServicio <- EitherT.rightT[Task, MensajeError](ServicioValidacionesParqueadero.generarValorServicioParqueo(registro))
+              valorServicio <- EitherT.rightT[Task, MensajeError](dependencias.servicioValidacionesParqueadero.generarValorServicioParqueo(registro))
             } yield valorServicio
           }
           case None => EitherT.leftT(MensajeError(Aplicacion, "No se encontr\u00F3 ningun registro con esta placa"))

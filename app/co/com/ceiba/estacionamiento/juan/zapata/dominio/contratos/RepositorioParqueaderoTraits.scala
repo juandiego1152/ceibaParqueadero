@@ -3,8 +3,8 @@ package dominio.contratos
 import java.sql.Timestamp
 
 import akka.Done
-import aplicacion.FormatoEitherT
 import cats.data.Reader
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.FormatoEitherT
 import dominio.modelos.{InformacionVehiculoParqueadero, RegistroParqueo, TipoVehiculo}
 import slick.basic.DatabaseConfig
 import slick.jdbc.JdbcProfile

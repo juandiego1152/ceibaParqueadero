@@ -1,6 +1,6 @@
 # Routes
 
-GET     /consultar-registros                 co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.consultas.ControladorConsultarVehiculosRegistrados.execute
+GET     /consultar-registros                 co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.consultas.ControladorConsultaVehiculosRegistrados.execute
 POST    /guardar-registro                    co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos.ComandoRegistrarIngresoVehiculo.execute
-POST    /salida-vehiculo                     co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos.ComandoSalidaDeVehiculo.execute
+POST    /salida-vehiculo                     co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos.ComandoSalidaVehiculo.execute
 

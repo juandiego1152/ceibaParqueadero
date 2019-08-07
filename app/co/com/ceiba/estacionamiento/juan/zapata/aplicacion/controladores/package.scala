@@ -1,3 +1,4 @@
+package co.com.ceiba.estacionamiento.juan.zapata.aplicacion
 
 import java.util.concurrent.Executors
 
@@ -9,7 +10,7 @@ import monix.execution.ExecutionModel.AlwaysAsyncExecution
 import monix.execution.UncaughtExceptionReporter
 import monix.execution.schedulers.ExecutorScheduler
 
-package object aplicacion {
+package object controladores {
 
   type FormatoEitherT[T] = EitherT[Task, MensajeError, T]
 

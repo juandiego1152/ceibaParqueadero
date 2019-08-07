@@ -5,8 +5,8 @@ import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
 import akka.Done
-import aplicacion.FormatoEither
 import cats.implicits._
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores._
 import dominio.contantes.Constantes._
 import dominio.modelos.{Carro, InformacionVehiculoParqueadero, Motocicleta, RegistroParqueo}
 import dominio.servicios.traits.ServicioValidacionesParqueaderoTrait
@@ -14,7 +14,7 @@ import infraestructura.configuracion.{MensajeError, Negocio}
 
 trait ServicioValidacionesParqueadero extends ServicioValidacionesParqueaderoTrait {
 
-  override def validarPermiteIngresarVehiculos(informacionParqueo: RegistroParqueo, cantidadVehiculosRegistrados: Int): FormatoEither[Done] = {
+  def validarPermiteIngresarVehiculos(informacionParqueo: RegistroParqueo, cantidadVehiculosRegistrados: Int): FormatoEither[Done] = {
     informacionParqueo.tipoVehiculo match {
       case Carro => validacionesParaCarros(informacionParqueo.placaVehiculo, cantidadVehiculosRegistrados)
       case Motocicleta => if (cantidadVehiculosRegistrados >= CantidadMaximaMotos) MensajeError(Negocio, "No hay capacidad en celdas para mas vehiculos").asLeft else Done.asRight
@@ -34,7 +34,7 @@ trait ServicioValidacionesParqueadero extends ServicioValidacionesParqueaderoTra
   }
 
 
-  override def generarValorServicioParqueo(registroParqueo: InformacionVehiculoParqueadero): Double = {
+  def generarValorServicioParqueo(registroParqueo: InformacionVehiculoParqueadero): Double = {
     val horaFechaActual = new Timestamp(System.currentTimeMillis())
     val diferencia = (horaFechaActual.getTime - registroParqueo.horaFechaIngresoVehiculo.getTime)
     val minutos = TimeUnit.MILLISECONDS.toMinutes(diferencia)

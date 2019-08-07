@@ -1,9 +1,10 @@
-package aplicacion
+package co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores
 
 import akka.actor.ActorSystem
 import aplicacion.servicios.implementacion.{ServicioParqueadero, ServicioParqueaderoObj}
 import com.google.inject.Injector
 import dominio.contratos.RepositorioParqueaderoTraits
+import dominio.servicios.implementaciones.ServicioValidacionesParqueadero
 import infraestructura.configuracion.DataBaseConfig
 import infraestructura.repositorios.repoParqueaderoObj
 import javax.inject.{Inject, Singleton}
@@ -23,6 +24,8 @@ class Dependencias @Inject()(val config: Configuration,
   lazy val databaseConfig: DatabaseConfig[JdbcProfile] = DataBaseConfig.dbConfigPostgres
 
   lazy val servicioParqueadero: ServicioParqueadero = ServicioParqueaderoObj
+
+  lazy val servicioValidacionesParqueadero: ServicioValidacionesParqueadero = ServicioValidacionesParqueadero
 
   lazy val repoParqueadero: RepositorioParqueaderoTraits = repoParqueaderoObj
 

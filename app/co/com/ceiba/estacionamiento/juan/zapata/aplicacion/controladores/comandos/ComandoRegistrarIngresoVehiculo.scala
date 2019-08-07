@@ -1,7 +1,5 @@
 package co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.comandos
 
-import aplicacion._
-import aplicacion.Dependencias
 import aplicacion.dtos.FormatosHttpDto._
 import aplicacion.servicios.ErrorServicio
 import dominio.modelos.RegistroParqueo
@@ -11,6 +9,7 @@ import org.joda.time.DateTime
 import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores._
 
 @Singleton
 case class ComandoRegistrarIngresoVehiculo @Inject()(dependencias: Dependencias, controllerComponents: ControllerComponents) extends BaseController with CommandHelper {

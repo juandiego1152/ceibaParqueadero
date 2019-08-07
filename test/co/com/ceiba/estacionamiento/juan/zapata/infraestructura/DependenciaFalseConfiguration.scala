@@ -3,12 +3,13 @@ package infraestructura
 import java.util.concurrent.Executors
 
 import akka.actor.ActorSystem
-import aplicacion.Dependencias
 import aplicacion.servicios.implementacion.ServicioParqueadero
+import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores.Dependencias
 import com.google.inject.Injector
 import com.sun.xml.internal.bind.v2.model.core.ErrorHandler
 import com.typesafe.config.ConfigFactory
 import dominio.contratos.RepositorioParqueaderoTraits
+import dominio.servicios.implementaciones.ServicioValidacionesParqueadero
 import javax.inject.{Inject, Singleton}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 import org.scalatestplus.play.PlaySpec
@@ -44,6 +45,8 @@ class FalseConfigurations @Inject()(
   override lazy val databaseConfig: DatabaseConfig[JdbcProfile] = mock[DatabaseConfig[JdbcProfile]]
 
   override lazy val servicioParqueadero: ServicioParqueadero = mock[ServicioParqueadero]
+
+  override lazy val servicioValidacionesParqueadero: ServicioValidacionesParqueadero = mock[ServicioValidacionesParqueadero]
 
   override lazy val repoParqueadero: RepositorioParqueaderoTraits = mock[RepositorioParqueaderoTraits]
 
