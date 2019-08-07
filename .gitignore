@@ -6,5 +6,6 @@ target
 /.project
 /.settings
 .g8
+.TestIntegracionDeLosComandos.Scala
 
 /RUNNING_PID

@@ -4,8 +4,9 @@ import infraestructura.FalseConfigurations
 import mocks.mocksServicioIngresoVehiculo.MockServicioRegistrarIngresoVehiculo
 import org.scalatestplus.play.PlaySpec
 import play.api.libs.json._
-import play.api.test.Helpers.{OK, contentAsString, route, status, stubControllerComponents, _}
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.FakeRequest
+import play.api.test.Helpers.{OK, stubControllerComponents, _}
+
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
@@ -14,20 +15,6 @@ class ComandoRegistrarIngresoVehiculoTest extends PlaySpec with MockServicioRegi
   "Al usar el ComandoRegistrarIngresoVehiculo" when {
 
     val parametrosEntrada = Json.parse("""{ "placaVehiculo": "ALS222","tipoVehiculo": "Carro" }""")
-
-    "Vamos a guardar un nuevo registro de vehiculo" must {
-      "Guardar correctamente" in new WithApplication {
-
-        val request = FakeRequest(POST, "/ceibaestacionamiento/guardar-registro").withJsonBody(parametrosEntrada)
-
-        val Some(result) = route(app, request)
-
-        val resultado: JsValue = Json.parse(contentAsString(result))
-
-        status(result) mustEqual OK
-        resultado.toString().contains("Datos guardados con \u00E9xito") mustBe true
-      }
-    }
 
     "Vamos a guardar un nuevo registro de vehiculo instanciando el comando" must {
       "Guardar correctamente" in {
