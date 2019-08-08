@@ -41,5 +41,4 @@ package object repositoriosTest {
     TB_parqueadero += InformacionParqueoRegistro("ALS21H", "Carro", 0, new Timestamp(System.currentTimeMillis() - (3600050 * 27)))
   )
 
-
 }

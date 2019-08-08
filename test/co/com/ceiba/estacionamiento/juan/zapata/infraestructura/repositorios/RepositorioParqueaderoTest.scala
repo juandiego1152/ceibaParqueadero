@@ -40,6 +40,22 @@ class RepositorioParqueaderoTest extends PlaySpec with BeforeAndAfter with Mocki
           resultado mustBe Success(Right(Done))
         }
       }
+//
+//      "Guardamos un nuvero registro en la bd pero ocurre un error" must {
+//        "Retorar el error generado" in {
+//
+//          val dbConfigMock = mock[DatabaseConfig[JdbcProfile]]
+//          val dbMock: JdbcBackend#DatabaseDef = mock[Database]
+//          when( dbConfigMock.db ).thenReturn( dbMock )
+//          doReturn( Future.failed( new Exception( "" ) ) ).when( dbMock ).run( anyObject )
+//
+//          val registroParqueo = registroParqueoCarro.copy(placaVehiculo = "JUA010")
+//          val horaFechaActual = new Timestamp(System.currentTimeMillis())
+//          val resultado = Await.ready(repoParqueaderoObj.guardarRegistroParqueadero(registroParqueo, horaFechaActual).run(dbConfigMock).value.runToFuture, Duration.Inf).value.get
+//
+//          resultado mustBe Success(Right(Done))
+//        }
+//      }
     }
 
     "Al usar el metodo: consultarCantidadVehiculosRegistrados" when {
@@ -53,22 +69,6 @@ class RepositorioParqueaderoTest extends PlaySpec with BeforeAndAfter with Mocki
         }
       }
     }
-
-//        "Al usar el metodo: consultarVehiculoRegistrado" when {
-//
-//        "Guardamos un nuvero registro en la bd" must {
-//          "Retorar Donde" in {
-//
-//
-//            val registroParqueo = InformacionVehiculoParqueadero("ALS21D", Carro, 0, new Timestamp(System.currentTimeMillis() - (3600050 * 2)))
-//            val resultado = Await.ready(repoParqueaderoObj.consultarVehiculoRegistrado("ALS21D").run(dbconfig).value.runToFuture, Duration.Inf).value.get
-//
-//            val fechahora = resultado.map(x => x.map(a => a.map(z => z.horaFechaIngresoVehiculo)))
-//            val resultadoFinal = registroParqueo.copy(horaFechaIngresoVehiculo = fechahora)
-//            resultado mustBe Success(Right(Some()))
-//          }
-//        }
-//      }
 
     "Al usar el metodo: eliminarRegistroParqueadero" when {
 
