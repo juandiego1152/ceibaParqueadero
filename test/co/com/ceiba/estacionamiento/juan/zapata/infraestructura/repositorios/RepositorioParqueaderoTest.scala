@@ -40,22 +40,6 @@ class RepositorioParqueaderoTest extends PlaySpec with BeforeAndAfter with Mocki
           resultado mustBe Success(Right(Done))
         }
       }
-//
-//      "Guardamos un nuvero registro en la bd pero ocurre un error" must {
-//        "Retorar el error generado" in {
-//
-//          val dbConfigMock = mock[DatabaseConfig[JdbcProfile]]
-//          val dbMock: JdbcBackend#DatabaseDef = mock[Database]
-//          when( dbConfigMock.db ).thenReturn( dbMock )
-//          doReturn( Future.failed( new Exception( "" ) ) ).when( dbMock ).run( anyObject )
-//
-//          val registroParqueo = registroParqueoCarro.copy(placaVehiculo = "JUA010")
-//          val horaFechaActual = new Timestamp(System.currentTimeMillis())
-//          val resultado = Await.ready(repoParqueaderoObj.guardarRegistroParqueadero(registroParqueo, horaFechaActual).run(dbConfigMock).value.runToFuture, Duration.Inf).value.get
-//
-//          resultado mustBe Success(Right(Done))
-//        }
-//      }
     }
 
     "Al usar el metodo: consultarCantidadVehiculosRegistrados" when {

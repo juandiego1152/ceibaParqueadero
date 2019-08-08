@@ -17,15 +17,9 @@ object InformacionRegistroParqueoFactory {
 
   def registroParqueoMoto1Dia3HorasAltoCilindraje = InformacionVehiculoParqueadero("ALS21D", Motocicleta, 650, new Timestamp(System.currentTimeMillis() - (3600050 * 27)))
 
-//  def registroParqueoCarro2MinutosMaximosNoRebasados = InformacionVehiculoParqueadero("ALS21D", Carro, 0, new Timestamp(System.currentTimeMillis() - (3600050 * 2) + (60005 * (MinutosMaximosNuevaHora - 1))))
-
-//  def registroParqueoCarro2MinutosMaximosRebasados = InformacionVehiculoParqueadero("ALS21D", Carro, 0, new Timestamp(System.currentTimeMillis() - (3600050 * 2) + (60005 * (MinutosMaximosNuevaHora + 1))))
-
   def registroParqueoCarroHorasMaximasParaCobroHoras = InformacionVehiculoParqueadero("ALS21D", Carro, 0, new Timestamp(System.currentTimeMillis() - (3600100 * CantidadHorasMinimasCobroDia - 1)))
 
   def registroParqueoCarroHorasMaximasParaCobroDia = InformacionVehiculoParqueadero("ALS21D", Carro, 0, new Timestamp(System.currentTimeMillis() - (3600050 * (CantidadHorasMinimasCobroDia) )))
-
-//  def registroParqueoCarro25Horas = InformacionVehiculoParqueadero("ALS21D", Carro, 0, new Timestamp(System.currentTimeMillis() - (3600050 * 25)))
 
   def registroParqueoCarro1Dia3Horas = InformacionVehiculoParqueadero("ALS21D", Carro, 0, new Timestamp(System.currentTimeMillis() - (3600050 * 27)))
 

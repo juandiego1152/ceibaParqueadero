@@ -1,9 +1,5 @@
 package co.com.ceiba.estacionamiento.juan.zapata.dominio.servicios.implementacion
 
-import java.util.Calendar
-
-import org.scalatestplus.play.PlaySpec
-import org.specs2.mock.Mockito
 import akka.Done
 import cats.implicits._
 import co.com.ceiba.estacionamiento.juan.zapata.factorys.InformacionRegistroParqueoFactory._
@@ -11,6 +7,8 @@ import co.com.ceiba.estacionamiento.juan.zapata.factorys.RegistroParqueoFactory.
 import dominio.contantes.Constantes._
 import dominio.servicios.implementaciones.ServicioValidacionesParqueadero
 import infraestructura.configuracion.{MensajeError, Negocio}
+import org.scalatestplus.play.PlaySpec
+import org.specs2.mock.Mockito
 
 class mockServicioValidacionesParqueadero extends ServicioValidacionesParqueadero
 
@@ -170,21 +168,5 @@ class ServicioValidacionesParqueaderoTest extends PlaySpec with Mockito {
         respuesta mustBe MensajeError(Negocio, "No hay capacidad en celdas para mas vehiculos").asLeft
       }
     }
-
-    //    "Un vehiculo cumple con las validaciones" must {
-    //      "Devolver Done" in {
-    //        val placa = "AlS222"
-    //        val cantidadVehiculos = 5
-    //
-    ////        val diaActual = Calendar.getInstance.get(Calendar.DAY_OF_WEEK) - 1
-    ////        override DiasPermitidosDeCarrosConRestriccionDePlaca = List(diaActual)
-    //
-    //        val respuesta = ServicioValidacionesParqueadero.validacionesParaCarros(placa, cantidadVehiculos)
-    //        respuesta mustBe Done.asRight
-    //      }
-    //    }
-
   }
-
-
 }

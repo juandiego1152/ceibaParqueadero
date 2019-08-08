@@ -8,7 +8,6 @@ import cats.data.{EitherT, Reader}
 import cats.implicits._
 import co.com.ceiba.estacionamiento.juan.zapata.aplicacion.controladores._
 import dominio.modelos.{RegistroParqueo, SinCategoria, TipoVehiculo}
-import dominio.servicios.implementaciones.ServicioValidacionesParqueadero
 import infraestructura.configuracion.{Aplicacion, MensajeError}
 import monix.eval.Task
 
@@ -34,7 +33,6 @@ trait ServicioParqueadero {
       )
   }
 
-//  private[servicios] def validarInformacion(informacionParqueo: RegistroParqueo): FormatoEither[Done] = {
   def validarInformacion(informacionParqueo: RegistroParqueo): FormatoEither[Done] = {
     (validarFormatoPlaca(informacionParqueo.placaVehiculo),
       validarTipoVehiculo(informacionParqueo.tipoVehiculo)).mapN((_, _) => Done).aFormatoEither
